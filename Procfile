@@ -1,1 +1,1 @@
-worker: subito-searcher.py --daemon --delay 30
+worker: python3 subito-searcher.py --daemon --delay 30
