@@ -144,7 +144,7 @@ def run_query(url, name, notify):
     if len(msg) > 0:
         if notify:
             # Windows only: send notification
-            if price < 250:
+            if is_telegram_active():
                 send_telegram_messages(msg)
             print("\n".join(msg))
             print('\n{} new elements have been found.'.format(len(msg)))
