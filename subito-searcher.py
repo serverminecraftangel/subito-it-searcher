@@ -38,10 +38,7 @@ apiCredentials = dict()
 dbFile = "searches.tracked"
 telegramApiFile = "telegram_api_credentials"
 
-# Windows notifications
-if platform.system() == "Windows":
-    from win10toast import ToastNotifier
-    toaster = ToastNotifier()
+
 
 
 # load from file
@@ -140,16 +137,13 @@ def run_query(url, name, notify):
             print("Adding result:", title, "-", price, "-", location)
         else:   # add search results to dictionary
             if not queries.get(name).get(url).get(link):   # found a new element
-                tmp = "New element found for "+name+": "+title+" @ "+price+" - "+location+" --> "+link+'\n'
+                tmp = "Frò c'è un nuovo affare: "+title+" @ "+price+" - "+location+" --> "+link+'\n'
                 msg.append(tmp)
                 queries[name][url][link] = {'title': title, 'price': price, 'location': location}
 
     if len(msg) > 0:
         if notify:
             # Windows only: send notification
-            if not args.win_notifyoff and platform.system() == "Windows":
-                global toaster
-                toaster.show_toast("New announcements", "Query: " + name)
             if is_telegram_active():
                 send_telegram_messages(msg)
             print("\n".join(msg))
